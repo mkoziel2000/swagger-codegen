@@ -124,7 +124,6 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
                         "ICollection",
                         "Collection",
                         "List",
-						"IEnumerable",
                         "Dictionary",
                         "DateTime?",
                         "DateTimeOffset?",
@@ -139,8 +138,8 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
                         "Object")
         );
 
-        instantiationTypes.put("array", "IEnumerable");
-        instantiationTypes.put("list", "IEnumerable");
+        instantiationTypes.put("array", "List");
+        instantiationTypes.put("list", "List");
         instantiationTypes.put("map", "Dictionary");
 
         // Nullable types here assume C# 2 support is not part of base
@@ -157,8 +156,8 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
         typeMapping.put("datetime", "DateTime?");
         typeMapping.put("date", "DateTime?");
         typeMapping.put("file", "System.IO.Stream");
-        typeMapping.put("array", "IEnumerable");
-        typeMapping.put("list", "IEnumerable");
+        typeMapping.put("array", "List");
+        typeMapping.put("list", "List");
         typeMapping.put("map", "Dictionary");
         typeMapping.put("object", "Object");
         typeMapping.put("uuid", "Guid?");

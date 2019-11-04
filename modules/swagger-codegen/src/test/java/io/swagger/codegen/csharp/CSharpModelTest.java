@@ -23,7 +23,7 @@ import java.util.Map;
 @SuppressWarnings("static-method")
 public class CSharpModelTest {
 
-    @Test(description = "convert a model with array property to default IEnumerable<T>")
+    @Test(description = "convert a model with array property to default List<T>")
     public void arrayPropertyTest() {
         final Model model = getArrayTestModel();
 
@@ -39,10 +39,10 @@ public class CSharpModelTest {
         Assert.assertEquals(property.baseName, "examples");
         Assert.assertEquals(property.getter, "getExamples");
         Assert.assertEquals(property.setter, "setExamples");
-        Assert.assertEquals(property.datatype, "IEnumerable<string>");
+        Assert.assertEquals(property.datatype, "List<string>");
         Assert.assertEquals(property.name, "Examples");
         Assert.assertEquals(property.defaultValue, null);
-        Assert.assertEquals(property.baseType, "IEnumerable");
+        Assert.assertEquals(property.baseType, "List");
         Assert.assertEquals(property.containerType, "array");
         Assert.assertFalse(property.required);
         Assert.assertTrue(property.isContainer);
@@ -184,10 +184,10 @@ public class CSharpModelTest {
 
         final CodegenProperty property2 = cm.vars.get(1);
         Assert.assertEquals(property2.baseName, "urls");
-        Assert.assertEquals(property2.datatype, "IEnumerable<string>");
+        Assert.assertEquals(property2.datatype, "List<string>");
         Assert.assertEquals(property2.name, "Urls");
         Assert.assertNull(property2.defaultValue);
-        Assert.assertEquals(property2.baseType, "IEnumerable");
+        Assert.assertEquals(property2.baseType, "List");
         Assert.assertFalse(property2.hasMore);
         Assert.assertEquals(property2.containerType, "array");
         Assert.assertFalse(property2.required);
@@ -260,9 +260,9 @@ public class CSharpModelTest {
         final CodegenProperty property1 = cm.vars.get(0);
         Assert.assertEquals(property1.baseName, "children");
         Assert.assertEquals(property1.complexType, "Children");
-        Assert.assertEquals(property1.datatype, "IEnumerable<Children>");
+        Assert.assertEquals(property1.datatype, "List<Children>");
         Assert.assertEquals(property1.name, "Children");
-        Assert.assertEquals(property1.baseType, "IEnumerable");
+        Assert.assertEquals(property1.baseType, "List");
         Assert.assertEquals(property1.containerType, "array");
         Assert.assertFalse(property1.required);
         Assert.assertTrue(property1.isContainer);
@@ -307,7 +307,7 @@ public class CSharpModelTest {
         Assert.assertEquals(cm.classname, "Sample");
         Assert.assertEquals(cm.description, "an array model");
         Assert.assertEquals(cm.vars.size(), 0);
-        Assert.assertEquals(cm.parent, "IEnumerable<Children>");
+        Assert.assertEquals(cm.parent, "List<Children>");
         Assert.assertEquals(cm.imports.size(), 1);
         Assert.assertEquals(Sets.intersection(cm.imports, Sets.newHashSet("Children")).size(), 1);
     }
@@ -342,7 +342,7 @@ public class CSharpModelTest {
 
         Assert.assertEquals(cm.name, "sample");
         Assert.assertEquals(cm.classname, "Sample");
-        Assert.assertEquals(cm.parent, "IEnumerable<IEnumerable<double?>>");
+        Assert.assertEquals(cm.parent, "List<List<double?>>");
     }
 
     @Test(description = "convert an array of array properties")
@@ -367,9 +367,9 @@ public class CSharpModelTest {
         final CodegenProperty property1 = cm.vars.get(0);
         Assert.assertEquals(property1.baseName, "points");
         Assert.assertNull(property1.complexType);
-        Assert.assertEquals(property1.datatype, "IEnumerable<IEnumerable<double?>>");
+        Assert.assertEquals(property1.datatype, "List<List<double?>>");
         Assert.assertEquals(property1.name, "Points");
-        Assert.assertEquals(property1.baseType, "IEnumerable");
+        Assert.assertEquals(property1.baseType, "List");
         Assert.assertEquals(property1.containerType, "array");
         Assert.assertFalse(property1.required);
         Assert.assertTrue(property1.isContainer);
