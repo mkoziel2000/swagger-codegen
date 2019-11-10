@@ -20,7 +20,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-using SwaggerDateConverter = IO.Swagger.Client.SwaggerDateConverter;
 
 namespace IO.Swagger.Model
 {
@@ -85,32 +84,19 @@ namespace IO.Swagger.Model
         /// </summary>
         [DataMember(Name="days", EmitDefaultValue=false)]
         public DaysEnum? Days { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MyClassWithOptionalInlineEnum" /> class.
-        /// </summary>
-        /// <param name="quarantine">quarantine.</param>
-        /// <param name="grayware">grayware.</param>
-        /// <param name="days">days.</param>
-        public MyClassWithOptionalInlineEnum(bool? quarantine = default(bool?), bool? grayware = default(bool?), DaysEnum? days = default(DaysEnum?))
-        {
-            this.Quarantine = quarantine;
-            this.Grayware = grayware;
-            this.Days = days;
-        }
         
         /// <summary>
         /// Gets or Sets Quarantine
         /// </summary>
         [DataMember(Name="quarantine", EmitDefaultValue=false)]
         public bool? Quarantine { get; set; }
-
+        
         /// <summary>
         /// Gets or Sets Grayware
         /// </summary>
         [DataMember(Name="grayware", EmitDefaultValue=false)]
         public bool? Grayware { get; set; }
-
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>

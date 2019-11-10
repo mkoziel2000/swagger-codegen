@@ -124,6 +124,7 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
                         "ICollection",
                         "Collection",
                         "List",
+                        "IEnumerable",
                         "Dictionary",
                         "DateTime?",
                         "DateTimeOffset?",

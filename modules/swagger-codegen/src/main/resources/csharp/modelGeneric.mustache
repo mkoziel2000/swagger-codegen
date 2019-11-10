@@ -35,82 +35,20 @@
         public {{#complexType}}{{{complexType}}}{{/complexType}}{{^complexType}}{{{datatypeWithEnum}}}{{/complexType}}{{^isContainer}}{{^required}}?{{/required}}{{/isContainer}} {{name}} { get; set; }
         {{/isEnum}}
         {{/vars}}
-    {{#hasRequired}}
-    {{^hasOnlyReadOnly}}
-        /// <summary>
-        /// Initializes a new instance of the <see cref="{{classname}}" /> class.
-        /// </summary>
-        [JsonConstructorAttribute]
-        protected {{classname}}() { }
-    {{/hasOnlyReadOnly}}
-    {{/hasRequired}}
-        /// <summary>
-        /// Initializes a new instance of the <see cref="{{classname}}" /> class.
-        /// </summary>
-        {{#vars}}
-        {{^isReadOnly}}
-        /// <param name="{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}">{{#description}}{{description}}{{/description}}{{^description}}{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}{{/description}}{{#required}} (required){{/required}}{{#defaultValue}} (default to {{defaultValue}}){{/defaultValue}}.</param>
-        {{/isReadOnly}}
-        {{/vars}}
-    {{#hasOnlyReadOnly}}
-        [JsonConstructorAttribute]
-    {{/hasOnlyReadOnly}}
-        public {{classname}}({{#readWriteVars}}{{{datatypeWithEnum}}}{{#isEnum}}{{^isContainer}}{{^required}}?{{/required}}{{/isContainer}}{{/isEnum}} {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}} = {{#defaultValue}}{{{defaultValue}}}{{/defaultValue}}{{^defaultValue}}default({{{datatypeWithEnum}}}{{#isEnum}}{{^isContainer}}{{^required}}?{{/required}}{{/isContainer}}{{/isEnum}}){{/defaultValue}}{{^-last}}, {{/-last}}{{/readWriteVars}}){{#parent}} : base({{#parentVars}}{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}{{#hasMore}}, {{/hasMore}}{{/parentVars}}){{/parent}}
-        {
-            {{#vars}}
-            {{^isInherited}}
-            {{^isReadOnly}}
-            {{#required}}
-            // to ensure "{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}" is required (not null)
-            if ({{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}} == null)
-            {
-                throw new InvalidDataException("{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}} is a required property for {{classname}} and cannot be null");
-            }
-            else
-            {
-                this.{{name}} = {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}};
-            }
-            {{/required}}
-            {{/isReadOnly}}
-            {{/isInherited}}
-            {{/vars}}
-            {{#vars}}
-            {{^isInherited}}
-            {{^isReadOnly}}
-            {{^required}}
-            {{#defaultValue}}// use default value if no "{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}" provided
-            if ({{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}} == null)
-            {
-                this.{{name}} = {{{defaultValue}}};
-            }
-            else
-            {
-                this.{{name}} = {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}};
-            }
-            {{/defaultValue}}
-            {{^defaultValue}}
-this.{{name}} = {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}};
-            {{/defaultValue}}
-            {{/required}}
-            {{/isReadOnly}}
-            {{/isInherited}}
-            {{/vars}}
-        }
-        
         {{#vars}}
         {{^isInherited}}
         {{^isEnum}}
+        
         /// <summary>
         /// {{^description}}Gets or Sets {{{name}}}{{/description}}{{#description}}{{description}}{{/description}}
         /// </summary>{{#description}}
         /// <value>{{description}}</value>{{/description}}
-        [DataMember(Name="{{baseName}}", EmitDefaultValue={{emitDefaultValue}})]{{#isDate}}
-        [JsonConverter(typeof(SwaggerDateConverter))]{{/isDate}}
-        public {{{datatype}}} {{name}} { get; {{#isReadOnly}}private {{/isReadOnly}}set; }
+        [DataMember(Name="{{baseName}}", EmitDefaultValue={{emitDefaultValue}})]
+        public {{#isListContainer}}IEnumerable<{{{items.baseType}}}>{{/isListContainer}}{{^isListContainer}}{{{datatype}}}{{/isListContainer}} {{name}} { get; {{#isReadOnly}}private {{/isReadOnly}}set; }
         {{/isEnum}}
         {{/isInherited}}
-
         {{/vars}}
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -186,8 +124,8 @@ this.{{name}} = {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}};
                 int hashCode = 41;
                 {{/parent}}
                 {{#vars}}
-                if (this.{{name}} != null)
-                    hashCode = hashCode * 59 + this.{{name}}.GetHashCode();
+                {{^isRequired}}if (this.{{name}} != null)
+                    hashCode = hashCode * 59 + this.{{name}}.GetHashCode();{{/isRequired}}{{#isRequired}}hashCode = hashCode * 59 + this.{{name}}.GetHashCode();{{/isRequired}}
                 {{/vars}}
                 return hashCode;
             }

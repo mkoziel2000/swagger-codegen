@@ -20,7 +20,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-using SwaggerDateConverter = IO.Swagger.Client.SwaggerDateConverter;
 
 namespace IO.Swagger.Model
 {
@@ -35,24 +34,13 @@ namespace IO.Swagger.Model
         /// </summary>
         [DataMember(Name="days", EmitDefaultValue=false)]
         public WeekDays? Days { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MyClassWithInvalidRequiredEnumUsageOnRef" /> class.
-        /// </summary>
-        /// <param name="first">first.</param>
-        /// <param name="days">days.</param>
-        public MyClassWithInvalidRequiredEnumUsageOnRef(bool? first = default(bool?), WeekDays? days = default(WeekDays?))
-        {
-            this.First = first;
-            this.Days = days;
-        }
         
         /// <summary>
         /// Gets or Sets First
         /// </summary>
         [DataMember(Name="first", EmitDefaultValue=false)]
         public bool? First { get; set; }
-
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
